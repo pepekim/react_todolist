@@ -1,21 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {View} from 'react-native';
+import ListScreen from './app/screens/ListScreen';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function App() {
+const TabStack = createBottomTabNavigator();
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <TabStack.Navigator>
+        <TabStack.Screen 
+          name='홈'
+          component={WelcomeScreen}
+          options={{
+            tabBarIcon: () => (
+              <Icon name="home" size={20} color="brown" />
+            )
+          }}
+        />
+        <TabStack.Screen 
+          name='투두리스트'
+          component={ListScreen}
+          options={{
+            tabBarIcon: () => (
+              <Icon name="ios-book" size={20} color="brown" />
+            )
+          }}
+        />
+      </TabStack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
